@@ -1,0 +1,21 @@
+version: '2'
+plugins:
+- name: py
+  wasm:
+    url: https://github.com/tabbed/sqlc-gen-python/releases/download/v0.16.0-alpha/sqlc-gen-python.wasm
+    sha256: 428476c7408fd4c032da4ec74e8a7344f4fa75e0f98a5a3302f238283b9b95f2
+    #sha256: 521ba5bae7255993f6ca273bcfc0f061ae186c4238b5dcb543db1efa4222d143
+sql:
+- schema: "./db/migration/"
+  queries: "./db/query/"
+  engine: postgresql
+  codegen:
+  - out: "./db/sqlc"
+    plugin: py
+    options:
+      package: "db"
+      emit_json_tags: true
+      emit_prepared_queries: false
+      emit_interface: true
+      emit_exact_table_names: false
+      emit_empty_slices: true
