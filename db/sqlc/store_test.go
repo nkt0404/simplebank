@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -20,6 +21,9 @@ func TestTransferTx(t *testing.T) {
 
 	errs := make(chan error)
 	results := make(chan TransferTxResult)
+	//fmt.Println("errs, results: ", errs, results)
+	log.Println("errs, results: ", errs, results)
+	// fmt.Fprintln(os.Stdout, "errs, results: ", errs, results)
 
 	// run n concurrent transfer transaction
 	for i := 0; i < n; i++ {
@@ -32,9 +36,8 @@ func TestTransferTx(t *testing.T) {
 
 			errs <- err
 			results <- result
-			// 追記
-			//close(errs)
-			//close(results)
+			//fmt.Println("errs, results: ", errs, results)
+			log.Println("errs, results: ", errs, results)
 		}()
 	}
 
